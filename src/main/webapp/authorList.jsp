@@ -54,7 +54,7 @@
                                         <c:out value="${author.authorName}" />
                                     </td>
                                     <td>
-                                        <fmt:formatDate pattern="MM/dd/yyyy" value="${author.dateAdded}" />
+                                        <fmt:formatDate pattern="/dd/yyyy" value="${author.dateAdded}" />
                                     </td>
                                     </tr>
                                 </c:forEach>
