@@ -24,6 +24,9 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "AuthorController", urlPatterns = {"/AuthorController"})
 public class AuthorController extends HttpServlet {
     private static final String RESULT_PAGE = "authorList.jsp";
+    private static final String ADD_AUTHOR_PAGE = "authorAdd.jsp";
+    private static final String EDIT_AUTHOR_PAGE = "authorEdit.jsp";
+    private static final String ACTION = "action";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -38,6 +41,9 @@ public class AuthorController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         
+        String action = request.getParameter(ACTION);
+        
+        
         String destination = RESULT_PAGE;
         try 
         {
@@ -48,7 +54,23 @@ public class AuthorController extends HttpServlet {
                     "admin"
                 )
             );
-            request.setAttribute("authors", authorService.getAllAuthors("author", 50));
+            
+            switch(action)
+            {
+                case "displayList":
+                    request.setAttribute("authors", authorService.getAllAuthors("author", 50));
+                    break;
+                case "addAuthor":
+                    destination = ADD_AUTHOR_PAGE;
+                    break;
+                case "editAuthor":
+                    destination = EDIT_AUTHOR_PAGE;
+                    break;
+                case "deleteAuthor":
+                    break;
+            }
+            
+            
         }
         catch (Exception e) 
         {

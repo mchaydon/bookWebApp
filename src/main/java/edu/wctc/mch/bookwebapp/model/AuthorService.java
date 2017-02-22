@@ -33,6 +33,21 @@ public class AuthorService {
     {
         return dao.getAuthorList(tableName, maxRecords);
     }
+    
+    public int deleteAuthor(String tableName, String colName, Object id) throws ClassNotFoundException, SQLException
+    {
+        return dao.deleteAuthor(tableName, colName, id);
+    }
+    
+    public int insertAuthor(String tableName, List<String> colNames, List colValues) throws ClassNotFoundException, SQLException
+    {
+        return dao.insertAuthor(tableName, colNames, colValues);
+    }
+    
+    public int updateAuthor(String tableName, List<String> colNames, List colValues, String colName, Object id) throws ClassNotFoundException, SQLException
+    {
+        return dao.updateAuthor(tableName, colNames, colValues, colName, id);
+    }
         
 //    private List<Author> authors = new ArrayList<>();
 //    private Date date = new Date();
@@ -65,11 +80,35 @@ public class AuthorService {
                 )
         );
         
-        List<Author> authors = authorService.getAllAuthors("author", 50);
+        //List test
+//        List<Author> authors = authorService.getAllAuthors("author", 50);
+//        
+//        for (Author a: authors)
+//        {
+//            System.out.println(a);
+//        }
+
+        //Delete Test
+//        authorService.deleteAuthor("author", "author_id", 6);
         
-        for (Author a: authors)
-        {
-            System.out.println(a);
-        }
+        //Insert Test
+//        Date date = new Date();
+//        List<String> colNames = new ArrayList<>();
+//        colNames.add("author_name");
+//        colNames.add("date_added");
+//        List colValues = new ArrayList<>();
+//        colValues.add("James Smith");
+//        colValues.add(date);
+//        authorService.insertAuthor("author", colNames, colValues);
+        
+        //Update Test
+//        Date date = new Date();
+//        List<String> colNames = new ArrayList<>();
+//        colNames.add("author_name");
+//        colNames.add("date_added");
+//        List colValues = new ArrayList<>();
+//        colValues.add("Jane Doe");
+//        colValues.add(date);
+//        authorService.updateAuthor("author", colNames, colValues, "author_id", 7);
     }
 }

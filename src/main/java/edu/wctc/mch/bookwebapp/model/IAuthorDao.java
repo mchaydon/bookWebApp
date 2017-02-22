@@ -14,7 +14,10 @@ import java.util.List;
  */
 public interface IAuthorDao {
 
-    List<Author> getAuthorList(String tableName, int maxRecords) throws ClassNotFoundException, SQLException;
+    public abstract List<Author> getAuthorList(String tableName, int maxRecords) throws ClassNotFoundException, SQLException;
+    public abstract int deleteAuthor(String tableName, String colName, Object id) throws ClassNotFoundException, SQLException;
+    public abstract int insertAuthor(String tableName, List<String> colNames, List colValues) throws ClassNotFoundException, SQLException;
+    public abstract int updateAuthor(String tableName, List<String> colNames, List colValues, String colName, Object id) throws ClassNotFoundException, SQLException;
 
     DbAccessor getDb();
 

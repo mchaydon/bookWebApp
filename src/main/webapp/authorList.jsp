@@ -59,7 +59,14 @@
                                     </tr>
                                 </c:forEach>
                             </table>
+                            <div class="row">
+                                <button type="button" class="btn btn-primary col-xs-2 col-xs-offset-2">Add</button>
+                                <button type="button" class="btn btn-primary col-xs-2 col-xs-offset-1">Edit</button>
+                                <button type="button" class="btn btn-primary col-xs-2 col-xs-offset-1">Delete</button>
+                            </div>
+                            <br>
                         </div>
+                        
                         <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
                         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
                     </body>

@@ -61,6 +61,36 @@ public class AuthorDao implements IAuthorDao {
     }
     
     @Override
+    public int deleteAuthor(String tableName, String colName, Object id) throws ClassNotFoundException, SQLException
+    {
+        int result = 0;
+        db.openConnection(driverClass, url, userName, password);
+        result = db.deleteById(tableName, colName, id);
+        db.closeConnection();
+        return result;
+    }
+    
+    @Override
+    public int insertAuthor(String tableName, List<String> colNames, List colValues) throws ClassNotFoundException, SQLException
+    {
+        int result = 0;
+        db.openConnection(driverClass, url, userName, password);
+        result = db.insertRecord(tableName, colNames, colValues);
+        db.closeConnection();
+        return result;
+    }
+    
+    @Override
+    public int updateAuthor(String tableName, List<String> colNames, List colValues, String colName, Object id) throws ClassNotFoundException, SQLException
+    {
+        int result = 0;
+        db.openConnection(driverClass, url, userName, password);
+        result = db.updateRecord(tableName, colNames, colValues, colName, id);
+        db.closeConnection();
+        return result;
+    }
+    
+    @Override
     public DbAccessor getDb() 
     {
         return db;
@@ -116,12 +146,36 @@ public class AuthorDao implements IAuthorDao {
         IAuthorDao dao = new AuthorDao(new MySqlDbAccessor(), "com.mysql.jdbc.Driver", 
                 "jdbc:mysql://localhost:3306/book", "root", "admin");
         
-        List<Author> authors = dao.getAuthorList("author", 50);
+        //Get Author List
+//        List<Author> authors = dao.getAuthorList("author", 50);
+//        
+//        for (Author a: authors)
+//        {
+//            System.out.println(a);
+//        }
         
-        for (Author a: authors)
-        {
-            System.out.println(a);
-        }
+        //Delete Author
+//        dao.deleteAuthor("author", "author_id", 5);
+        
+        //Insert Author
+//        Date date = new Date();
+//        List<String> colNames = new ArrayList<>();
+//        colNames.add("author_name");
+//        colNames.add("date_added");
+//        List colValues = new ArrayList<>();
+//        colValues.add("James Smith");
+//        colValues.add(date);
+//        dao.insertAuthor("author", colNames, colValues);
+
+        //Update Author
+//        Date date = new Date();
+//        List<String> colNames = new ArrayList<>();
+//        colNames.add("author_name");
+//        colNames.add("date_added");
+//        List colValues = new ArrayList<>();
+//        colValues.add("Jane Doe");
+//        colValues.add(date);
+//        dao.updateAuthor("author", colNames, colValues, "author_id", 6);
     }
 
 
