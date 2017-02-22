@@ -30,16 +30,32 @@ public class MySqlDbAccessor implements DbAccessor {
     
     //Consider creating custom exception
     @Override
-    public void openConnection(String driverClass, String url, String userName,
-            String password) throws ClassNotFoundException, SQLException
+    public final void openConnection(String driverClass, String url, String userName,
+            String password) throws ClassNotFoundException, SQLException, IllegalArgumentException
     {
         //include validation for strings to check not null
+        if (driverClass == null || driverClass.contains("") || driverClass.isEmpty())
+        {
+            throw new IllegalArgumentException("Driver string can not be null or empty");
+        }
+        if (url == null || url.contains("") || url.isEmpty())
+        {
+            throw new IllegalArgumentException("Url can not be null or empty");
+        }
+        if (userName == null || userName.contains("") || userName.isEmpty())
+        {
+            throw new IllegalArgumentException("Username can not be null or empty");
+        }
+        if (password == null || password.contains("") || password.isEmpty())
+        {
+            throw new IllegalArgumentException("Password can not be null or empty");
+        }
         Class.forName(driverClass);
         conn = DriverManager.getConnection(url, userName, password);
     }
     
     @Override
-    public void closeConnection() throws SQLException
+    public final void closeConnection() throws SQLException
     {
         if (conn != null)
         {
@@ -48,7 +64,7 @@ public class MySqlDbAccessor implements DbAccessor {
     }
     
     @Override
-    public List <Map<String,Object>> findRecordsFor(String tableName, int maxRecords) 
+    public final List <Map<String,Object>> findRecordsFor(String tableName, int maxRecords) 
             throws SQLException
     {
         
@@ -87,7 +103,7 @@ public class MySqlDbAccessor implements DbAccessor {
     }
     
     @Override
-    public int deleteById(String tableName, String colName, Object id) throws SQLException
+    public final int deleteById(String tableName, String colName, Object id) throws SQLException
     {
         //sql = "DELETE FROM actor WHERE" + " actor_id = " + deleteId;
 //        String sId = null;
@@ -113,7 +129,7 @@ public class MySqlDbAccessor implements DbAccessor {
     }
     
     @Override
-    public int insertRecord(String tableName, List<String> colNames, List colValues) throws SQLException
+    public final int insertRecord(String tableName, List<String> colNames, List colValues) throws SQLException
     {
         //sql = "INSERT INTO actor (first_name,last_name)" + " VALUES('Billy','Carter')";
         String sql = "INSERT INTO " + tableName + " ";
@@ -147,7 +163,7 @@ public class MySqlDbAccessor implements DbAccessor {
     }
     
     @Override
-    public int updateRecord(String tableName, List<String> colNames, List colValues, String colName, Object id) throws SQLException
+    public final int updateRecord(String tableName, List<String> colNames, List colValues, String colName, Object id) throws SQLException
     {
         //UPDATE table_name SET column1=value1,column2=value2 WHERE some_column=some_value;
         String sql = "UPDATE " + tableName + " SET ";
