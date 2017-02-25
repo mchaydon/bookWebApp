@@ -10,6 +10,9 @@ import edu.wctc.mch.bookwebapp.model.AuthorService;
 import edu.wctc.mch.bookwebapp.model.MySqlDbAccessor;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -25,7 +28,6 @@ import javax.servlet.http.HttpServletResponse;
 public class AuthorController extends HttpServlet {
     private static final String RESULT_PAGE = "authorList.jsp";
     private static final String ADD_AUTHOR_PAGE = "authorAdd.jsp";
-    private static final String EDIT_AUTHOR_PAGE = "authorEdit.jsp";
     private static final String ACTION = "action";
 
     /**
@@ -63,8 +65,16 @@ public class AuthorController extends HttpServlet {
                 case "addAuthor":
                     destination = ADD_AUTHOR_PAGE;
                     break;
-                case "editAuthor":
-                    destination = EDIT_AUTHOR_PAGE;
+                case "submitAuthor":
+                    Date date = new Date();
+                    List<String> colNames = new ArrayList<>();
+                    colNames.add("author_name");
+                    colNames.add("date_added");
+                    List colValues = new ArrayList<>();
+                    colValues.add(request.getParameter("authorName"));
+                    colValues.add(date);
+                    authorService.insertAuthor("author", colNames, colValues);
+                    request.setAttribute("authors", authorService.getAllAuthors("author", 50));
                     break;
                 case "deleteAuthor":
                     break;

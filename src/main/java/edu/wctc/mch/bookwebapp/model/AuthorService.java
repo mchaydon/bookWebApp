@@ -80,7 +80,7 @@ public class AuthorService {
                 )
         );
         
-        //List test
+//        //List test
 //        List<Author> authors = authorService.getAllAuthors("author", 50);
 //        
 //        for (Author a: authors)
@@ -89,7 +89,8 @@ public class AuthorService {
 //        }
 
         //Delete Test
-//        authorService.deleteAuthor("author", "author_id", 6);
+//        authorService.deleteAuthor("author", "author_id", 12);
+//        authorService.deleteAuthor("author", "author_id", 13);
         
         //Insert Test
 //        Date date = new Date();

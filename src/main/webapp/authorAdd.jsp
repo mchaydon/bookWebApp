@@ -1,0 +1,52 @@
+<%-- 
+    Document   : authorAddEdit
+    Created on : Feb 22, 2017, 11:29:38 AM
+    Author     : Mike
+--%>
+
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<%@page contentType="text/html" pageEncoding="UTF-8"%>
+    <!DOCTYPE html>
+    <html>
+
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" type="text/css" href="style.css">
+        <title>Add Author</title>
+    </head>
+
+    <body>
+        <nav class="navbar navbar-inverse navbar-static-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="index.html">
+                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                    </a>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <h2>Add Author</h2>
+            <div class="row">
+                <form name="addAuthor" method="POST" action="AuthorController?action=submitAuthor">
+                    <div class="form-group col-xs-5">
+                        <label for="authorName">Author Name</label>
+                        <input type="text" class="form-control" id="authorName" name="authorName" placeholder="">
+                    </div>
+                    <input type="submit" value="Save">
+                </form>
+            </div>
+            <div class="row">
+                <a href="AuthorController?action=displayList"><button type="button" class="btn btn-primary col-xs-1 col-xs-offset-1">Cancel</button></a>
+            </div>
+            <br>
+        </div>
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    </body>
+
+    </html>

@@ -34,22 +34,22 @@ public class MySqlDbAccessor implements DbAccessor {
             String password) throws ClassNotFoundException, SQLException, IllegalArgumentException
     {
         //include validation for strings to check not null
-        if (driverClass == null || driverClass.contains("") || driverClass.isEmpty())
-        {
-            throw new IllegalArgumentException("Driver string can not be null or empty");
-        }
-        if (url == null || url.contains("") || url.isEmpty())
-        {
-            throw new IllegalArgumentException("Url can not be null or empty");
-        }
-        if (userName == null || userName.contains("") || userName.isEmpty())
-        {
-            throw new IllegalArgumentException("Username can not be null or empty");
-        }
-        if (password == null || password.contains("") || password.isEmpty())
-        {
-            throw new IllegalArgumentException("Password can not be null or empty");
-        }
+//        if (driverClass == null || driverClass.contains("") || driverClass.isEmpty())
+//        {
+//            throw new IllegalArgumentException("Driver string can not be null or empty");
+//        }
+//        if (url == null || url.contains("") || url.isEmpty())
+//        {
+//            throw new IllegalArgumentException("Url can not be null or empty");
+//        }
+//        if (userName == null || userName.contains("") || userName.isEmpty())
+//        {
+//            throw new IllegalArgumentException("Username can not be null or empty");
+//        }
+//        if (password == null || password.contains("") || password.isEmpty())
+//        {
+//            throw new IllegalArgumentException("Password can not be null or empty");
+//        }
         Class.forName(driverClass);
         conn = DriverManager.getConnection(url, userName, password);
     }
