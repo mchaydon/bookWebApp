@@ -103,13 +103,13 @@ public class AuthorService {
 //        authorService.insertAuthor("author", colNames, colValues);
         
         //Update Test
-//        Date date = new Date();
+        //Date date = new Date();
 //        List<String> colNames = new ArrayList<>();
 //        colNames.add("author_name");
-//        colNames.add("date_added");
+//        //colNames.add("date_added");
 //        List colValues = new ArrayList<>();
-//        colValues.add("Jane Doe");
-//        colValues.add(date);
+//        colValues.add("Albert Doe");
+//        //colValues.add(date);
 //        authorService.updateAuthor("author", colNames, colValues, "author_id", 7);
     }
 }

@@ -30,45 +30,44 @@
         </nav>
         <div class="container">
             <h2>Author List</h2>
-            <table class="table table-condensed">
-                <tr>
-                    <th></th>
-                    <th>ID</th>
-                    <th>Author Name</th>
-                    <th>Date Added</th>
-                </tr>
-
-
-                <c:forEach items="${authors}" var="author" varStatus="rowCount">
-                    <c:choose>
-                        <c:when test="${rowCount.count % 2 == 0}">
-                            <tr style="background-color: white">
-                        </c:when>
-                        <c:otherwise>
-                            <tr style="background-color: #e1faea;">
-                        </c:otherwise>
-                    </c:choose>
-                    <td>
-                        <div class="checkbox">
-                            <label><input type="checkbox" value="${author.authorId}"></label>
-                        </div>
-                    </td>
-                    <td>
-                        <c:out value="${author.authorId}" />
-                    </td>
-                    <td>
-                        <c:out value="${author.authorName}" />
-                    </td>
-                    <td>
-                        <fmt:formatDate pattern="MM/dd/yyyy" value="${author.dateAdded}" />
-                    </td>
+            <form id="authorTable" name="rectForm" method="POST" action="AuthorController">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Author Name</th>
+                        <th>Date Added</th>
                     </tr>
-                </c:forEach>
-            </table>
-            <div class="row">
-                <a href="AuthorController?action=addAuthor"><button type="button" class="btn btn-primary col-xs-1 col-xs-offset-1">Add</button></a>
-                <button type="button" class="btn btn-primary col-xs-1 col-xs-offset-1">Delete</button>
-            </div>
+
+
+                    <c:forEach items="${authors}" var="author" varStatus="rowCount">
+                        <c:choose>
+                            <c:when test="${rowCount.count % 2 == 0}">
+                                <tr style="background-color: white">
+                            </c:when>
+                            <c:otherwise>
+                                <tr style="background-color: #e1faea;">
+                            </c:otherwise>
+                        </c:choose>
+                        <td>
+
+                            <label><input type="radio" id="authorSelected" name="authorSelected" value="${author.authorId}"> <c:out value="${author.authorId}" /></label>
+                        </td>
+                        <td>
+                            <c:out value="${author.authorName}" />
+                        </td>
+                        <td>
+                            <fmt:formatDate pattern="MM/dd/yyyy" value="${author.dateAdded}" />
+                        </td>
+                        </tr>
+                    </c:forEach>
+                </table>
+                <div class="row">
+                    <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
+                    <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
+                    <button type="submit" class="btn btn-primary" name="submit" value="delete">Delete</button>
+                </div>
+            </form>
+            ${test}
             <br>
         </div>
 

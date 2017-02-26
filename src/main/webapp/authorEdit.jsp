@@ -1,5 +1,5 @@
 <%-- 
-    Document   : authorAdd
+    Document   : authorEdit
     Created on : Feb 22, 2017, 11:29:38 AM
     Author     : Mike
 --%>
@@ -15,7 +15,7 @@
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
         <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
         <link rel="stylesheet" type="text/css" href="style.css">
-        <title>Add Author</title>
+        <title>Edit Author</title>
     </head>
 
     <body>
@@ -33,13 +33,17 @@
             <form name="addAuthor" method="POST" action="AuthorController">
                 <div class="row">
                     <div class="form-group col-xs-5">
+                        <label for="authorId">Author ID</label>
+                        <input type="text" class="form-control" id="authorId" name="authorId" value="${author_id}" readonly="readonly">
                         <label for="authorName">Author Name</label>
-                        <input type="text" class="form-control" id="authorName" name="authorName" placeholder="">
+                        <input type="text" class="form-control" id="authorName" name="authorName" value="${author_name}">
+                        <label for="authorDate">Date Added</label>
+                        <input type="text" class="form-control" id="authorDate" name="authorDate" value="${date_added}" disabled>
                     </div>
                 </div>
                 <div class="row">
                     <button type="submit" class="btn btn-primary">Cancel</button>
-                    <button type="submit" class="btn btn-primary" name="submit" value="addSave">Add</button>
+                    <button type="submit" class="btn btn-primary" name="submit" value="editSave">Save</button>
                 </div>
             </form>
             <br>
