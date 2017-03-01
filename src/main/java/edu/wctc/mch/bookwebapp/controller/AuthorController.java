@@ -33,6 +33,10 @@ public class AuthorController extends HttpServlet {
     private static final String EDIT_PAGE = "authorEdit.jsp";
     private static final String ACTION = "submit";
 
+    private String driverClass; 
+    private String url;
+    private String username; 
+    private String password;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -55,9 +59,7 @@ public class AuthorController extends HttpServlet {
         {
             AuthorService authorService = new AuthorService(new AuthorDao
                 (
-                    new MySqlDbAccessor(), "com.mysql.jdbc.Driver", 
-                    "jdbc:mysql://localhost:3306/book", "root", 
-                    "admin"
+                    new MySqlDbAccessor(), driverClass, url, username, password
                 )
             );
             
@@ -134,6 +136,14 @@ public class AuthorController extends HttpServlet {
     {
         List<Author> authors = authorService.getAllAuthors("author", 50);
         request.setAttribute("authors", authors);
+    }
+    
+    @Override
+    public void init() throws ServletException {
+        driverClass = getServletContext() .getInitParameter("db.driver.class");
+        url = getServletContext() .getInitParameter("db.url");
+        username = getServletContext() .getInitParameter("db.username");
+        password = getServletContext() .getInitParameter("db.password");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
