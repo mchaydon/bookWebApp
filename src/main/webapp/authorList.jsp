@@ -23,7 +23,7 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Book Web App
                     </a>
                 </div>
             </div>
@@ -49,7 +49,6 @@
                             </c:otherwise>
                         </c:choose>
                         <td>
-
                             <label><input type="radio" id="authorSelected" name="authorSelected" value="${author.authorId}"> <c:out value="${author.authorId}" /></label>
                         </td>
                         <td>
@@ -62,9 +61,11 @@
                     </c:forEach>
                 </table>
                 <div class="row">
+                    <div class="col-xs-5">
                     <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
                     <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
                     <button type="submit" class="btn btn-primary" name="submit" value="delete">Delete</button>
+                    </div>
                 </div>
             </form>
             ${test}

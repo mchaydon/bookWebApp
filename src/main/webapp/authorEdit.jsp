@@ -23,13 +23,14 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Book Web App
                     </a>
                 </div>
             </div>
         </nav>
         <div class="container">
             <h2>Add Author</h2>
+            <hr />
             <form name="addAuthor" method="POST" action="AuthorController">
                 <div class="row">
                     <div class="form-group col-xs-5">
@@ -42,8 +43,10 @@
                     </div>
                 </div>
                 <div class="row">
+                    <div class="col-xs-5">
                     <button type="submit" class="btn btn-primary">Cancel</button>
                     <button type="submit" class="btn btn-primary" name="submit" value="editSave">Save</button>
+                    </div>
                 </div>
             </form>
             <br>

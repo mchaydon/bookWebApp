@@ -117,7 +117,10 @@ public class AuthorController extends HttpServlet {
                         reloadAuthors(authorService, request);
                         break;   
                     case "delete":
-                        authorService.deleteAuthor("author", "author_id", selectedAuthor);
+                        if(selectedAuthor != null) 
+                        {
+                            authorService.deleteAuthor("author", "author_id", selectedAuthor);
+                        }
                         reloadAuthors(authorService, request);
                         break;
                 }

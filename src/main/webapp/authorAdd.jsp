@@ -8,8 +8,8 @@
 <%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-    <!DOCTYPE html>
-    <html>
+<!DOCTYPE html>
+<html>
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -23,13 +23,14 @@
             <div class="container-fluid">
                 <div class="navbar-header">
                     <a class="navbar-brand" href="index.html">
-                        <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
+                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Book Web App
                     </a>
                 </div>
             </div>
         </nav>
         <div class="container">
             <h2>Add Author</h2>
+            <hr />
             <form name="addAuthor" method="POST" action="AuthorController">
                 <div class="row">
                     <div class="form-group col-xs-5">
@@ -38,8 +39,10 @@
                     </div>
                 </div>
                 <div class="row">
-                    <button type="submit" class="btn btn-primary">Cancel</button>
-                    <button type="submit" class="btn btn-primary" name="submit" value="addSave">Add</button>
+                    <div class="col-xs-5">
+                        <button type="submit" class="btn btn-primary">Cancel</button>
+                        <button type="submit" class="btn btn-primary" name="submit" value="addSave">Add</button>
+                    </div>
                 </div>
             </form>
             <br>
@@ -49,4 +52,4 @@
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     </body>
 
-    </html>
+</html>
