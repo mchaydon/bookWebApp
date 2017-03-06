@@ -21,6 +21,18 @@
         <param-name>db.password</param-name>
         <param-value>admin</param-value> 
     </context-param>
+    <context-param>
+        <param-name>connPoolName</param-name>
+        <param-value>jdbc/book</param-value>
+    </context-param>
+    <context-param>
+        <param-name>authorDao</param-name>
+        <param-value>edu.wctc.mch.bookwebapp.model.AuthorDao</param-value>
+    </context-param>
+    <context-param>
+        <param-name>dbStrategy</param-name>
+        <param-value>edu.wctc.mch.bookwebapp.model.MySqlDbAccessor</param-value>
+    </context-param>
     <session-config>
         <session-timeout>
             30

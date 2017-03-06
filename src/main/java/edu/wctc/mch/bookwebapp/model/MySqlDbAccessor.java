@@ -18,6 +18,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.StringJoiner;
+import javax.sql.DataSource;
 
 /**
  *
@@ -223,4 +224,9 @@ public class MySqlDbAccessor implements DbAccessor {
 //            System.out.println(record);
 //        }
 //    }
+
+    @Override
+    public final void openConnection(DataSource ds) throws SQLException {
+        conn = ds.getConnection();
+    }
 }

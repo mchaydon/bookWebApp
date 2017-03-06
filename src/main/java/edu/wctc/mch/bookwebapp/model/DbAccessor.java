@@ -8,6 +8,7 @@ package edu.wctc.mch.bookwebapp.model;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
 
 /**
  *
@@ -28,4 +29,5 @@ public interface DbAccessor {
     
     public int updateRecord(String tableName, List<String> colNames, List colValues, String colName, Object id) throws SQLException;
     
+    public void openConnection(DataSource ds) throws SQLException;
 }

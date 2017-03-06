@@ -10,31 +10,26 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import javax.sql.DataSource;
 
 /**
  *
  * @author Mike
  */
-public class AuthorDao implements IAuthorDao {
+public class ConnPoolAuthorDao implements IAuthorDao {
     private DbAccessor db;
-    private String driverClass;
-    private String url;
-    private String userName;
-    private String password;
+    private DataSource ds;
 
-    public AuthorDao(DbAccessor db, String driverClass, String url, String userName, String password) {
+    public ConnPoolAuthorDao(DataSource ds, DbAccessor db) {
         this.db = db;
-        this.driverClass = driverClass;
-        this.url = url;
-        this.userName = userName;
-        this.password = password;
+        this.ds = ds;
     }
     
     @Override
     public List<Author> getAuthorList(String tableName, int maxRecords) throws ClassNotFoundException, SQLException
     {
         List<Author> authorList = new ArrayList<>();
-        db.openConnection(driverClass, url, userName, password);
+        db.openConnection(ds);
         
         List<Map<String,Object>> rawData = db.findRecordsFor(tableName, maxRecords);
         
@@ -64,7 +59,7 @@ public class AuthorDao implements IAuthorDao {
     public int deleteAuthor(String tableName, String colName, Object id) throws ClassNotFoundException, SQLException
     {
         int result = 0;
-        db.openConnection(driverClass, url, userName, password);
+        db.openConnection(ds);
         result = db.deleteById(tableName, colName, id);
         db.closeConnection();
         return result;
@@ -74,7 +69,7 @@ public class AuthorDao implements IAuthorDao {
     public int insertAuthor(String tableName, List<String> colNames, List colValues) throws ClassNotFoundException, SQLException
     {
         int result = 0;
-        db.openConnection(driverClass, url, userName, password);
+        db.openConnection(ds);
         result = db.insertRecord(tableName, colNames, colValues);
         db.closeConnection();
         return result;
@@ -84,7 +79,7 @@ public class AuthorDao implements IAuthorDao {
     public int updateAuthor(String tableName, List<String> colNames, List colValues, String colName, Object id) throws ClassNotFoundException, SQLException
     {
         int result = 0;
-        db.openConnection(driverClass, url, userName, password);
+        db.openConnection(ds);
         result = db.updateRecord(tableName, colNames, colValues, colName, id);
         db.closeConnection();
         return result;
@@ -100,42 +95,11 @@ public class AuthorDao implements IAuthorDao {
         this.db = db;
     }
 
-    public String getDriverClass() {
-        return driverClass;
-    }
-
-    public void setDriverClass(String driverClass) {
-        this.driverClass = driverClass;
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
     
-    public static void main(String[] args) throws ClassNotFoundException, SQLException {
-        IAuthorDao dao = new AuthorDao(new MySqlDbAccessor(), "com.mysql.jdbc.Driver", 
-                "jdbc:mysql://localhost:3306/book", "root", "admin");
-        
+//    public static void main(String[] args) throws ClassNotFoundException, SQLException {
+//        IAuthorDao dao = new ConnPoolAuthorDao(new MySqlDbAccessor(), "com.mysql.jdbc.Driver", 
+//                "jdbc:mysql://localhost:3306/book", "root", "admin");
+//        
         //Get Author List
 //        List<Author> authors = dao.getAuthorList("author", 50);
 //        
@@ -166,7 +130,7 @@ public class AuthorDao implements IAuthorDao {
 //        colValues.add("Jane Doe");
 //        colValues.add(date);
 //        dao.updateAuthor("author", colNames, colValues, "author_id", 6);
-    }
+    //}
 
 
 }
