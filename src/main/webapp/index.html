@@ -21,8 +21,12 @@
     <div class="container">
         <h2>Author Admin Console</h2>
         <hr />
-        <h3><a href="AuthorController" style="text-decoration:none;">Author List</a></h3>
+        <h3>
+            <!-- Use <%= response.encodeURL("AuthorController") %> when page updated to jsp -->
+            <a href="AuthorController" style="text-decoration:none;">Author List</a>
+        </h3>
         <br>
+        <br> 
     </div>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>

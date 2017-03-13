@@ -15,17 +15,20 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.lang.reflect.Constructor;
 import java.sql.SQLException;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javax.naming.Context;
 import javax.naming.InitialContext;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.sql.DataSource;
 
 /**
@@ -38,6 +41,7 @@ public class AuthorController extends HttpServlet {
     private static final String ADD_PAGE = "authorAdd.jsp";
     private static final String EDIT_PAGE = "authorEdit.jsp";
     private static final String ACTION = "submit";
+    private static int counter = 0;
 
     private String driverClass; 
     private String url;
@@ -62,6 +66,12 @@ public class AuthorController extends HttpServlet {
         String action = request.getParameter(ACTION);
         String selectedAuthor = request.getParameter("authorSelected");
         
+        HttpSession session = request.getSession();
+        session.setAttribute("date", LocalDateTime.now());
+        
+        ServletContext ctx = request.getServletContext();
+        counter++;
+        ctx.setAttribute("counter", counter);
         
         String destination = LIST_PAGE;
         try 
@@ -136,7 +146,7 @@ public class AuthorController extends HttpServlet {
         }
         
         RequestDispatcher view =
-                request.getRequestDispatcher(destination);
+                request.getRequestDispatcher(response.encodeURL(destination));
         view.forward(request, response);
     }
     

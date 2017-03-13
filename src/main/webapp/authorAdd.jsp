@@ -4,12 +4,14 @@
     Author     : Mike
 --%>
 
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
-<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %> 
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %> 
+<%@taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
+<c:set var="language" value="${pageContext.request.locale}" scope="session" />
+<fmt:setBundle basename="edu.wctc.mch.bookwebapp.i18n.messages" />
 <!DOCTYPE html>
-<html>
+<html lang="${language}">
 
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
@@ -19,15 +21,7 @@
     </head>
 
     <body>
-        <nav class="navbar navbar-inverse navbar-static-top">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="index.html">
-                        <span class="glyphicon glyphicon-home" aria-hidden="true"></span> Book Web App
-                    </a>
-                </div>
-            </div>
-        </nav>
+        <jsp:include page="headerFragment.jsp" />
         <div class="container">
             <h2>Add Author</h2>
             <hr />
@@ -35,6 +29,7 @@
                 <div class="row">
                     <div class="form-group col-xs-5">
                         <label for="authorName">Author Name</label>
+                        
                         <input type="text" class="form-control" id="authorName" name="authorName" placeholder="">
                     </div>
                 </div>
