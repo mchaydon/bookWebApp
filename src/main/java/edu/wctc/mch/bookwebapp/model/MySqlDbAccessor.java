@@ -198,16 +198,16 @@ public class MySqlDbAccessor implements DbAccessor {
         return pstm.executeUpdate();
     }
     
-//    public static void main(String[] args) throws Exception {
-//        DbAccessor db = new MySqlDbAccessor();
+    public static void main(String[] args) throws Exception {
+        DbAccessor db = new MySqlDbAccessor();
+        
+        db.openConnection("com.mysql.jdbc.Driver", 
+                "jdbc:mysql://localhost:3306/book", "root", 
+                "admin");
+        List<Map<String,Object>> records = db.findRecordsFor("author", 50);
+//        db.deleteById("author", "author_id", 2);
 //        
-//        db.openConnection("com.mysql.jdbc.Driver", 
-//                "jdbc:mysql://localhost:3306/book", "root", 
-//                "admin");
-        //List<Map<String,Object>> records = db.findRecordsFor("author", 50);
-        //db.deleteById("author", "author_id", 2);
-        
-        
+//        
 //        Date date = new Date();
 //        List<String> colNames = new ArrayList<>();
 //        colNames.add("author_name");
@@ -217,13 +217,13 @@ public class MySqlDbAccessor implements DbAccessor {
 //        colValues.add(date);
 //        //db.insertRecord("author", colNames, colValues);
 //        db.updateRecord("author", colNames, colValues, "author_id", 5);
-//        db.closeConnection();
+        db.closeConnection();
         
-//        for(Map<String,Object> record : records)
-//        {
-//            System.out.println(record);
-//        }
-//    }
+        for(Map<String,Object> record : records)
+        {
+            System.out.println(record);
+        }
+    }
 
     @Override
     public final void openConnection(DataSource ds) throws SQLException {
