@@ -1,14 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package edu.wctc.mch.bookwebapp.controller;
 
+import edu.wctc.mch.bookwebapp.model.Author;
+import edu.wctc.mch.bookwebapp.model.Book;
 import edu.wctc.mch.bookwebapp.model.BookFacade;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.SQLException;
+import java.util.List;
 import javax.ejb.EJB;
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -21,7 +21,8 @@ import javax.servlet.http.HttpServletResponse;
  */
 @WebServlet(name = "BookController", urlPatterns = {"/BookController"})
 public class BookController extends HttpServlet {
-
+    private static final String LIST_PAGE = "bookList.jsp";
+    private static final String ACTION = "submit";
     
     @EJB
     private BookFacade bookService;
@@ -38,9 +39,42 @@ public class BookController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
+            response.setContentType("text/html;charset=UTF-8");
             
+            String action = request.getParameter(ACTION);
+            
+            String destination = LIST_PAGE;
+            try 
+            {
+                if (action != null)
+                {
+
+                }
+                else
+                {
+                    reloadBooks(request);
+                }
+            }
+            catch (Exception e)
+            {
+                destination = LIST_PAGE;
+            }
+            
+            RequestDispatcher view =
+                request.getRequestDispatcher(response.encodeURL(destination));
+            view.forward(request, response);
         }
+    }
+    
+    private void reloadBooks(HttpServletRequest request) throws ClassNotFoundException, SQLException
+    {
+        List<Book> books = bookService.findAll();
+        request.setAttribute("books", books);
+    }
+    
+    @Override
+    public void init() throws ServletException {
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

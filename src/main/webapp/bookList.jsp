@@ -23,12 +23,14 @@
         <body>
             <jsp:include page="headerFragment.jsp" />
             <div class="container">
-                <h2>Author List</h2>
+                <h2>Book List</h2>
                 <form id="bookTable" name="bookForm" method="POST" action="BookController">
                     <table class="table">
                         <tr>
                             <th>ID</th>
                             <th>Book Name</th>
+                            <th>ISBN</th>
+                            <th>Author</th>
                         </tr>
 
 
@@ -41,7 +43,18 @@
                                     <tr style="background-color: #e1faea;">
                                     </c:otherwise>
                                 </c:choose>
-                                
+                                <td>
+                                    <label><input type="radio" id="bookSelected" name="bookSelected" value="${book.bookId}"> <c:out value="${book.bookId}" /></label>
+                                </td>
+                                <td>
+                                    <c:out value="${book.title}" />
+                                </td>
+                                <td>
+                                    <c:out value="${book.isbn}" />
+                                </td>
+                                <td>
+                                    <c:out value="${book.getAuthorId().authorName}" />
+                                </td>
                             </tr>
                         </c:forEach>
                     </table>
