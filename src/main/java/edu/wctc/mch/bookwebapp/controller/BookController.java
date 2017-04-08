@@ -1,6 +1,7 @@
 package edu.wctc.mch.bookwebapp.controller;
 
 import edu.wctc.mch.bookwebapp.model.Author;
+import edu.wctc.mch.bookwebapp.model.AuthorFacade;
 import edu.wctc.mch.bookwebapp.model.Book;
 import edu.wctc.mch.bookwebapp.model.BookFacade;
 import java.io.IOException;
@@ -22,10 +23,15 @@ import javax.servlet.http.HttpServletResponse;
 @WebServlet(name = "BookController", urlPatterns = {"/BookController"})
 public class BookController extends HttpServlet {
     private static final String LIST_PAGE = "bookList.jsp";
+    private static final String ADD_PAGE = "bookAdd.jsp";
+    private static final String EDIT_PAGE = "bookEdit.jsp";
     private static final String ACTION = "submit";
     
     @EJB
     private BookFacade bookService;
+    
+    @EJB
+    private AuthorFacade authorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -42,13 +48,72 @@ public class BookController extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             
             String action = request.getParameter(ACTION);
+            String selectedBook = request.getParameter("bookSelected");
+            
+            List<Author> authors = null;
             
             String destination = LIST_PAGE;
             try 
             {
                 if (action != null)
                 {
-
+                    switch(action)
+                    {
+                    case "add":
+                        destination = ADD_PAGE;
+                        authors = authorService.findAll();
+                        request.setAttribute("authors", authors);
+                        break;
+                    case "addSave":
+                        if (!request.getParameter("bookName").isEmpty())
+                        {
+                            //bookService.addNew(request.getParameter("authorName"));
+                        }
+                        reloadBooks(request);
+                        break;
+                    case "edit":
+                        if(selectedBook != null) 
+                        {
+                            List<Book> books = bookService.findAll();
+                            for(Book b: books)
+                            {
+                                if (b.getBookId() == Integer.valueOf(selectedBook))
+                                {
+                                    request.setAttribute("book_id", b.getBookId());
+                                    request.setAttribute("book_name", b.getTitle());
+                                    request.setAttribute("book_isbn", b.getIsbn());
+                                    request.setAttribute("book_authorId", b.getAuthorId().getAuthorId());
+                                }
+                            }
+                            authors = authorService.findAll();
+                            request.setAttribute("authors", authors);
+                            
+                            destination = EDIT_PAGE;
+                        }
+                        reloadBooks(request);
+                        break;
+                    case "editSave":
+                        authors = authorService.findAll();
+                        int selectedAuthor = Integer.valueOf(request.getParameter("authorList"));
+                            for(Author a: authors)
+                            {
+                                if (a.getAuthorId() == selectedAuthor)
+                                {
+                                    bookService.update(request.getParameter("bookId"), request.getParameter("bookName"), 
+                                request.getParameter("bookIsbn"), a);
+                                }
+                            }
+                        
+                        reloadBooks(request);
+                        break;
+                    case "delete":
+                        if(selectedBook != null) 
+                        {
+                            bookService.deleteById(selectedBook);
+                        }
+                        reloadBooks(request);
+                        break;
+                    }
                 }
                 else
                 {
