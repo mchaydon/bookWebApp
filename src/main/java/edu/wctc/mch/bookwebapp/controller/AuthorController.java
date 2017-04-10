@@ -7,6 +7,8 @@ package edu.wctc.mch.bookwebapp.controller;
 
 import edu.wctc.mch.bookwebapp.model.Author;
 import edu.wctc.mch.bookwebapp.model.AuthorFacade;
+import edu.wctc.mch.bookwebapp.model.Book;
+import edu.wctc.mch.bookwebapp.model.BookFacade;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -37,6 +39,9 @@ public class AuthorController extends HttpServlet {
     
     @EJB
     private AuthorFacade authorService;
+    
+    @EJB
+    private BookFacade bookService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -93,7 +98,8 @@ public class AuthorController extends HttpServlet {
                                     request.setAttribute("date_added", a.getDateAdded());
                                 }
                             }
-                            
+                            List<Book> books = bookService.findBookByAuthorId(selectedAuthor);
+                            request.setAttribute("books", books);
                             destination = EDIT_PAGE;
                         }
                         reloadAuthors(request);

@@ -5,7 +5,10 @@
  */
 package edu.wctc.mch.bookwebapp.model;
 
+import static edu.wctc.mch.bookwebapp.model.Author_.authorId;
 import java.util.Date;
+import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,6 +28,9 @@ public class AuthorFacade extends AbstractFacade<Author> {
     protected EntityManager getEntityManager() {
         return em;
     }
+    
+    @EJB
+    BookFacade bookService;
 
     public AuthorFacade() {
         super(Author.class);
@@ -32,6 +38,11 @@ public class AuthorFacade extends AbstractFacade<Author> {
     
     public int deleteById(String id)
     {
+        List<Book> books = bookService.findBookByAuthorId(id);
+        for (Book b: books)
+        {
+            bookService.deleteById(String.valueOf(b.getBookId()));
+        }
         Integer iId = Integer.parseInt(id);
         String jpql = "delete from Author a where a.authorId = :id";
         Query q = this.getEntityManager().createQuery(jpql);
@@ -55,15 +66,12 @@ public class AuthorFacade extends AbstractFacade<Author> {
         this.edit(a);
     }
     
-    public void addOrUpdate(String id, String name)
-    {
-        if (id == null || id.equals("0"))
-        {
-            //new record
-        }
-        else
-        {
-            //updated record
-        }
-    }
+    public Author findAuthorById(String id)
+     {
+        Integer iId = Integer.parseInt(id);
+        String jpql = "Select a from Author a where a.authorId = :id";
+        Query q = this.getEntityManager().createQuery(jpql);
+        q.setParameter("id", iId);
+        return (Author) q.getSingleResult();
+     }
 }

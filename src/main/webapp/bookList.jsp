@@ -35,14 +35,6 @@
 
 
                         <c:forEach items="${books}" var="book" varStatus="rowCount">
-                            <c:choose>
-                                <c:when test="${rowCount.count % 2 == 0}">
-                                    <tr style="background-color: white">
-                                    </c:when>
-                                    <c:otherwise>
-                                    <tr style="background-color: #e1faea;">
-                                    </c:otherwise>
-                                </c:choose>
                                 <td>
                                     <label><input type="radio" id="bookSelected" name="bookSelected" value="${book.bookId}"> <c:out value="${book.bookId}" /></label>
                                 </td>
@@ -58,9 +50,8 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <div class="row">
+                    <div class="row" style="padding-bottom: 1em;">
                         <div class="col-xs-5">
-                            <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
                             <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
                             <button type="submit" class="btn btn-primary" name="submit" value="delete">Delete</button>
                         </div>

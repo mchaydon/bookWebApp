@@ -30,8 +30,6 @@ public class BookController extends HttpServlet {
     @EJB
     private BookFacade bookService;
     
-    @EJB
-    private AuthorFacade authorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -49,6 +47,7 @@ public class BookController extends HttpServlet {
             
             String action = request.getParameter(ACTION);
             String selectedBook = request.getParameter("bookSelected");
+            String selectedAuthor = request.getParameter("authorSelected");
             
             List<Author> authors = null;
             
@@ -61,13 +60,12 @@ public class BookController extends HttpServlet {
                     {
                     case "add":
                         destination = ADD_PAGE;
-                        authors = authorService.findAll();
-                        request.setAttribute("authors", authors);
+                        request.setAttribute("selectedAuthor", selectedAuthor);
                         break;
                     case "addSave":
                         if (!request.getParameter("bookName").isEmpty())
                         {
-                            //bookService.addNew(request.getParameter("authorName"));
+                            bookService.addNew(request.getParameter("bookName"), request.getParameter("bookIsbn"), request.getParameter("bookAuthor"));
                         }
                         reloadBooks(request);
                         break;
@@ -84,25 +82,14 @@ public class BookController extends HttpServlet {
                                     request.setAttribute("book_isbn", b.getIsbn());
                                     request.setAttribute("book_authorId", b.getAuthorId().getAuthorId());
                                 }
-                            }
-                            authors = authorService.findAll();
-                            request.setAttribute("authors", authors);
-                            
+                            }                            
                             destination = EDIT_PAGE;
                         }
                         reloadBooks(request);
                         break;
                     case "editSave":
-                        authors = authorService.findAll();
-                        int selectedAuthor = Integer.valueOf(request.getParameter("authorList"));
-                            for(Author a: authors)
-                            {
-                                if (a.getAuthorId() == selectedAuthor)
-                                {
-                                    bookService.update(request.getParameter("bookId"), request.getParameter("bookName"), 
-                                request.getParameter("bookIsbn"), a);
-                                }
-                            }
+                            bookService.update(request.getParameter("bookId"), request.getParameter("bookName"), 
+                                request.getParameter("bookIsbn"));
                         
                         reloadBooks(request);
                         break;

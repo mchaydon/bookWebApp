@@ -5,5 +5,15 @@ body {
 .container {
     background-color: white;
     border: 1px solid #8d9d9d;
-    border-radius: .5em;
+    border-radius: .25em;
+    margin-top: 7em;
+}
+
+.navbar-brand {
+    padding-left: 2em;
+}
+
+.navbar {
+    height:5.5em !important;
+    border: none;
 }

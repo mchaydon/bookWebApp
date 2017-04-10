@@ -34,14 +34,6 @@
 
 
                         <c:forEach items="${authors}" var="author" varStatus="rowCount">
-                            <c:choose>
-                                <c:when test="${rowCount.count % 2 == 0}">
-                                    <tr style="background-color: white">
-                                    </c:when>
-                                    <c:otherwise>
-                                    <tr style="background-color: #e1faea;">
-                                    </c:otherwise>
-                                </c:choose>
                                 <td>
                                     <label><input type="radio" id="authorSelected" name="authorSelected" value="${author.authorId}"> <c:out value="${author.authorId}" /></label>
                                 </td>
@@ -54,7 +46,7 @@
                             </tr>
                         </c:forEach>
                     </table>
-                    <div class="row">
+                    <div class="row" style="padding-bottom: 1em;">
                         <div class="col-xs-5">
                             <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
                             <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
@@ -62,10 +54,12 @@
                         </div>
                     </div>
                 </form>
-                Visitor Count: ${counter}
-                <br>
-                Current Time: ${date}
-                <br>
+                <div class="container-fluid">
+                    <div class="row" style="padding-bottom: 1em; float:right; text-align: right;">
+                        <p>Visitor Count: ${counter}</p>
+                        <p>Current Time: ${date}</p>
+                    </div>
+                </div>
             </div>
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
