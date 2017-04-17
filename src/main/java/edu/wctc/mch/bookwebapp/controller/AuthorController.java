@@ -6,7 +6,7 @@
 package edu.wctc.mch.bookwebapp.controller;
 
 import edu.wctc.mch.bookwebapp.entity.Author;
-import edu.wctc.mch.bookwebapp.model.AuthorFacade;
+import edu.wctc.mch.bookwebapp.service.AuthorService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
@@ -35,8 +35,7 @@ public class AuthorController extends HttpServlet {
     private static final String ACTION = "submit";
     private static int counter = 0;
     
-    @EJB
-    private AuthorFacade authorService;
+    private AuthorService authorService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -76,7 +75,7 @@ public class AuthorController extends HttpServlet {
                     case "addSave":
                         if (!request.getParameter("authorName").isEmpty())
                         {
-                            authorService.addNew(request.getParameter("authorName"));
+                            //authorService.addNew(request.getParameter("authorName"));
                         }
                         reloadAuthors(request);
                         break;
@@ -99,13 +98,16 @@ public class AuthorController extends HttpServlet {
                         reloadAuthors(request);
                         break;
                     case "editSave":
-                        authorService.update(request.getParameter("authorId"), request.getParameter("authorName"));
+                        Author a = new Author();
+                        a.setAuthorId(Integer.valueOf(request.getParameter("authorId")));
+                        a.setAuthorName(request.getParameter("authorName"));
+                        authorService.edit(a);
                         reloadAuthors(request);
                         break;   
                     case "delete":
                         if(selectedAuthor != null) 
                         {
-                            authorService.deleteById(selectedAuthor);
+                            authorService.remove(authorService.findByIdAndFetchBooksEagerly(selectedAuthor));
                         }
                         reloadAuthors(request);
                         break;

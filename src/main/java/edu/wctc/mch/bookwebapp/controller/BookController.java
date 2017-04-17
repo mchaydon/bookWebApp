@@ -1,9 +1,9 @@
 package edu.wctc.mch.bookwebapp.controller;
 
 import edu.wctc.mch.bookwebapp.entity.Author;
-import edu.wctc.mch.bookwebapp.model.AuthorFacade;
 import edu.wctc.mch.bookwebapp.entity.Book;
-import edu.wctc.mch.bookwebapp.model.BookFacade;
+import edu.wctc.mch.bookwebapp.service.AuthorService;
+import edu.wctc.mch.bookwebapp.service.BookService;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
@@ -28,10 +28,10 @@ public class BookController extends HttpServlet {
     private static final String ACTION = "submit";
     
     @EJB
-    private BookFacade bookService;
+    private BookService bookService;
     
     @EJB
-    private AuthorFacade authorService;
+    private AuthorService authorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -109,7 +109,7 @@ public class BookController extends HttpServlet {
                     case "delete":
                         if(selectedBook != null) 
                         {
-                            bookService.deleteById(selectedBook);
+                            bookService.remove(bookService.findById(selectedBook));
                         }
                         reloadBooks(request);
                         break;
