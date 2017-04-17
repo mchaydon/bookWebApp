@@ -5,7 +5,7 @@
  */
 package edu.wctc.mch.bookwebapp.controller;
 
-import edu.wctc.mch.bookwebapp.model.Author;
+import edu.wctc.mch.bookwebapp.entity.Author;
 import edu.wctc.mch.bookwebapp.model.AuthorFacade;
 import java.io.IOException;
 import java.sql.SQLException;

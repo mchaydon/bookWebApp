@@ -1,4 +1,4 @@
-package edu.wctc.mch.bookwebapp.model;
+package edu.wctc.mch.bookwebapp.entity;
 
 import java.io.Serializable;
 import java.util.Date;
