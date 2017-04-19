@@ -6,12 +6,15 @@
 package edu.wctc.mch.bookwebapp.controller;
 
 import edu.wctc.mch.bookwebapp.entity.Author;
+import edu.wctc.mch.bookwebapp.entity.Book;
 import edu.wctc.mch.bookwebapp.service.AuthorService;
+import edu.wctc.mch.bookwebapp.service.BookService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Date;
 import java.util.List;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.ejb.EJB;
@@ -39,6 +42,7 @@ public class AuthorController extends HttpServlet {
     private static int counter = 0;
     
     private AuthorService authorService;
+    private BookService bookService;
     
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -88,7 +92,7 @@ public class AuthorController extends HttpServlet {
                     case "edit":
                         if(selectedAuthor != null) 
                         {
-                            List<Author> authors = authorService.findAll();
+                            List<Author> authors = authorService.findAllEagerly();
                             for(Author a: authors)
                             {
                                 if (a.getAuthorId() == Integer.valueOf(selectedAuthor))
@@ -96,6 +100,8 @@ public class AuthorController extends HttpServlet {
                                     request.setAttribute("author_id", a.getAuthorId());
                                     request.setAttribute("author_name", a.getAuthorName());
                                     request.setAttribute("date_added", a.getDateAdded());
+                                    Set<Book> books = a.getBookSet();
+                                    request.setAttribute("books", books);
                                 }
                             }
                             

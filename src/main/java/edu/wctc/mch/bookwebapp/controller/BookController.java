@@ -30,8 +30,6 @@ public class BookController extends HttpServlet {
     private static final String ACTION = "submit";
     
     private BookService bookService;
-    
-    private AuthorService authorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -61,8 +59,6 @@ public class BookController extends HttpServlet {
                     {
                     case "add":
                         destination = ADD_PAGE;
-                        authors = authorService.findAll();
-                        request.setAttribute("authors", authors);
                         break;
                     case "addSave":
                         if (!request.getParameter("bookName").isEmpty())
@@ -85,7 +81,6 @@ public class BookController extends HttpServlet {
                                     request.setAttribute("book_authorId", b.getAuthorId().getAuthorId());
                                 }
                             }
-                            authors = authorService.findAll();
                             request.setAttribute("authors", authors);
                             
                             destination = EDIT_PAGE;
@@ -93,7 +88,6 @@ public class BookController extends HttpServlet {
                         reloadBooks(request);
                         break;
                     case "editSave":
-                        authors = authorService.findAll();
                         int selectedAuthor = Integer.valueOf(request.getParameter("authorList"));
                             for(Author a: authors)
                             {
@@ -141,7 +135,6 @@ public class BookController extends HttpServlet {
     public void init() throws ServletException {
         ServletContext sctx = getServletContext();
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sctx);
-        authorService = (AuthorService) ctx.getBean("authorService");
         bookService = (BookService) ctx.getBean("bookService");
     }
 

@@ -34,17 +34,6 @@
                             <input type="text" class="form-control" id="bookName" name="bookName" value="${book_name}">
                             <label for="bookIsbn">Book ISBN</label>
                             <input type="text" class="form-control" id="bookIsbn" name="bookIsbn" value="${book_isbn}">
-                            <select id="authorList" name="authorList">
-                            <c:forEach items="${authors}" var="author">
-                                <c:if test="${book_authorId == author.authorId}">
-                                    <option value = "${author.authorId}" selected="selected">${author.authorName}</option>
-                                </c:if>
-                                <c:if test="${book_authorId != author.authorId}">
-                                    <option value = "${author.authorId}">${author.authorName}</option>
-                                </c:if>
-                            </c:forEach>
-                            <input type="text" id="selectedAuthor">
-                        </select>
                         </div>
                     </div>
                     <div class="row">

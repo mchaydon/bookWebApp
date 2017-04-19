@@ -28,18 +28,12 @@
             <form name="addBook" method="POST" action="BookController">
                 <div class="row">
                     <div class="form-group col-xs-5">
+                        <label for="bookAuthor">Author Id</label>
+                        <input type="text" class="form-control" id="bookAuthor" name="bookAuthor" value="${selectedAuthor}" readonly="readonly">
                         <label for="bookName">Book Name</label>
                         <input type="text" class="form-control" id="bookName" name="bookName" placeholder="">
                         <label for="bookIsbn">ISBN</label>
-                        <input type="text" class="form-control" id="bookIsbn" name="bookIsbn" placeholder="">
-                        <label for="bookName">Book Name</label>
-                        <input type="text" class="form-control" id="bookName" name="bookName" placeholder="">
-                        <label>Select list</label>
-                        <select id="authorList" name="authorList">
-                            <c:forEach items="${authors}" var="author">
-                                <option value = "${author.authorId}">${author.authorName}</option>
-                            </c:forEach>
-                        </select>
+                        <input type="text" class="form-control" id="bookIsbn" name="bookIsbn" placeholder="">  
                         
                     </div>
                 </div>

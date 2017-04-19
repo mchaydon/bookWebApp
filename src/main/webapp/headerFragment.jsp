@@ -6,13 +6,15 @@
 <fmt:setBundle basename="edu.wctc.mch.bookwebapp.i18n.messages" />
 <!DOCTYPE html>
 <html lang="${language}">
-    <nav class="navbar navbar-inverse navbar-static-top">
-        <div class="container-fluid">
-            <div class="navbar-header">
-                <a class="navbar-brand" href="index.html">
-                    <span class="glyphicon glyphicon-home" aria-hidden="true"></span> <fmt:message key="page.header.title"/>
-                </a>
+    <header>
+        <nav class="navbar navbar-inverse navbar-fixed-top">
+            <div class="container-fluid">
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="/bookWebApp/index.jsp" style="text-align: center">
+                        <img alt="Brand" src="images/logo.png">
+                    </a>
+                </div>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 </html>
