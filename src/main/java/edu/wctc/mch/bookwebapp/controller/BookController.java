@@ -8,13 +8,15 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.util.List;
-import javax.ejb.EJB;
 import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
@@ -27,10 +29,8 @@ public class BookController extends HttpServlet {
     private static final String EDIT_PAGE = "bookEdit.jsp";
     private static final String ACTION = "submit";
     
-    @EJB
     private BookService bookService;
     
-    @EJB
     private AuthorService authorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -99,8 +99,8 @@ public class BookController extends HttpServlet {
                             {
                                 if (a.getAuthorId() == selectedAuthor)
                                 {
-                                    bookService.update(request.getParameter("bookId"), request.getParameter("bookName"), 
-                                request.getParameter("bookIsbn"), a);
+                                    //bookService.update(request.getParameter("bookId"), request.getParameter("bookName"), 
+                                //request.getParameter("bookIsbn"), a);
                                 }
                             }
                         
@@ -139,7 +139,10 @@ public class BookController extends HttpServlet {
     
     @Override
     public void init() throws ServletException {
-        
+        ServletContext sctx = getServletContext();
+        WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sctx);
+        authorService = (AuthorService) ctx.getBean("authorService");
+        bookService = (BookService) ctx.getBean("bookService");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

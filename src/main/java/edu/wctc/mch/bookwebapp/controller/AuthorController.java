@@ -10,6 +10,7 @@ import edu.wctc.mch.bookwebapp.service.AuthorService;
 import java.io.IOException;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,6 +23,8 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 /**
  *
@@ -75,7 +78,10 @@ public class AuthorController extends HttpServlet {
                     case "addSave":
                         if (!request.getParameter("authorName").isEmpty())
                         {
-                            //authorService.addNew(request.getParameter("authorName"));
+                            Author a = new Author();
+                            a.setAuthorName(request.getParameter("authorName"));
+                            a.setDateAdded(new Date());
+                            authorService.edit(a);
                         }
                         reloadAuthors(request);
                         break;
@@ -98,8 +104,7 @@ public class AuthorController extends HttpServlet {
                         reloadAuthors(request);
                         break;
                     case "editSave":
-                        Author a = new Author();
-                        a.setAuthorId(Integer.valueOf(request.getParameter("authorId")));
+                        Author a = authorService.findByIdAndFetchBooksEagerly(request.getParameter("authorId"));
                         a.setAuthorName(request.getParameter("authorName"));
                         authorService.edit(a);
                         reloadAuthors(request);
@@ -107,7 +112,7 @@ public class AuthorController extends HttpServlet {
                     case "delete":
                         if(selectedAuthor != null) 
                         {
-                            authorService.remove(authorService.findByIdAndFetchBooksEagerly(selectedAuthor));
+                            authorService.remove(authorService.findById(selectedAuthor));
                         }
                         reloadAuthors(request);
                         break;
@@ -135,8 +140,11 @@ public class AuthorController extends HttpServlet {
     }
     
     @Override
-    public void init() throws ServletException {
-        
+    public void init() throws ServletException 
+    {
+        ServletContext sctx = getServletContext();
+        WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sctx);
+        authorService = (AuthorService) ctx.getBean("authorService");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
