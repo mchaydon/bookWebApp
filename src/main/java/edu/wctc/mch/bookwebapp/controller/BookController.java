@@ -30,6 +30,8 @@ public class BookController extends HttpServlet {
     private static final String ACTION = "submit";
     
     private BookService bookService;
+    
+    private AuthorService authorService;
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
@@ -58,12 +60,18 @@ public class BookController extends HttpServlet {
                     switch(action)
                     {
                     case "add":
+                        request.setAttribute("selectedAuthor", request.getParameter("authorSelected"));
                         destination = ADD_PAGE;
                         break;
                     case "addSave":
                         if (!request.getParameter("bookName").isEmpty())
                         {
-                            //bookService.addNew(request.getParameter("authorName"));
+                            Book b = new Book();
+                            b.setTitle(request.getParameter("bookName"));
+                            b.setIsbn(request.getParameter("bookIsbn"));
+                            Author a = authorService.findById(request.getParameter("bookAuthor"));
+                            b.setAuthorId(a);
+                            bookService.edit(b);
                         }
                         reloadBooks(request);
                         break;
@@ -93,8 +101,10 @@ public class BookController extends HttpServlet {
                             {
                                 if (a.getAuthorId() == selectedAuthor)
                                 {
-                                    //bookService.update(request.getParameter("bookId"), request.getParameter("bookName"), 
-                                //request.getParameter("bookIsbn"), a);
+                                    Book b = bookService.findById(request.getParameter("bookId"));
+                                    b.setTitle(request.getParameter("bookName"));
+                                    b.setIsbn(request.getParameter("bookIsbn"));
+                                    bookService.edit(b);
                                 }
                             }
                         
@@ -136,6 +146,7 @@ public class BookController extends HttpServlet {
         ServletContext sctx = getServletContext();
         WebApplicationContext ctx = WebApplicationContextUtils.getWebApplicationContext(sctx);
         bookService = (BookService) ctx.getBean("bookService");
+        authorService = (AuthorService) ctx.getBean("authorService");
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
