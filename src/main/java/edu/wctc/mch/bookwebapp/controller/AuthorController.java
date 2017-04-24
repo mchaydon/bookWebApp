@@ -42,8 +42,6 @@ public class AuthorController extends HttpServlet {
     private static int counter = 0;
     
     private AuthorService authorService;
-    private BookService bookService;
-    
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
      * methods.
