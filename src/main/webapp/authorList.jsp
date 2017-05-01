@@ -35,8 +35,9 @@
 
 
                         <c:forEach items="${authors}" var="author" varStatus="rowCount">
+                            <tr id="${author.authorId}">
                                 <td>
-                                    <label><input type="radio" id="authorSelected" name="authorSelected" value="${author.authorId}"> <c:out value="${author.authorId}" /></label>
+                                    <label><input type="radio" id="authorSelected" class="authorSelected" name="authorSelected" value="${author.authorId}"> <c:out value="${author.authorId}" /></label>
                                 </td>
                                 <td>
                                     <c:out value="${author.authorName}" />
@@ -51,7 +52,7 @@
                         <div class="col-xs-5">
                             <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
                             <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
-                            <button type="submit" class="btn btn-primary" name="submit" value="delete">Delete</button>
+                            <button type="button" class="btn btn-primary" name="submit" id="authorDelete" value="delete">Delete</button>
                         </div>
                     </div>
                 </form>
@@ -65,6 +66,7 @@
 
             <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
             <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+            <script src="js/main.js"></script>
         </body>
 
     </html>

@@ -10,6 +10,7 @@ import edu.wctc.mch.bookwebapp.entity.Book;
 import edu.wctc.mch.bookwebapp.service.AuthorService;
 import edu.wctc.mch.bookwebapp.service.BookService;
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.sql.SQLException;
 import java.time.LocalDateTime;
 import java.util.Date;
@@ -114,11 +115,9 @@ public class AuthorController extends HttpServlet {
                         reloadAuthors(request);
                         break;   
                     case "delete":
-                        if(selectedAuthor != null) 
-                        {
-                            authorService.remove(authorService.findById(selectedAuthor));
-                        }
-                        reloadAuthors(request);
+                        authorService.remove(authorService.findById(selectedAuthor));
+                        response.setContentType("application/json; charset=UTF-8");
+                        response.setStatus(200);
                         break;
                 }
             }
