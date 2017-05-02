@@ -50,9 +50,11 @@
                     </table>
                     <div class="row" style="padding-bottom: 1em;">
                         <div class="col-xs-5">
-                            <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
-                            <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
-                            <button type="button" class="btn btn-primary" name="submit" id="authorDelete" value="delete">Delete</button>
+                            <sec:authorize access="hasRole('ROLE_MGR')">
+                                <button type="submit" class="btn btn-primary" name="submit" value="add">Add</button>
+                                <button type="submit" class="btn btn-primary" name="submit" value="edit">Edit</button>
+                                <button type="button" class="btn btn-primary" name="submit" id="authorDelete" value="delete">Delete</button>
+                            </sec:authorize>
                         </div>
                     </div>
                 </form>
